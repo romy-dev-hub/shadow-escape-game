@@ -20,10 +20,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private int[][] maze;
     private GameTimer timer;
     private boolean gameOver;
-    private boolean won;
     private volatile Thread gameThread;
     private final Random rand = new Random();
-    private final GameFrame gameFrame; // Reference to GameFrame
+    private final GameFrame gameFrame;
 
     private boolean upPressed, downPressed, leftPressed, rightPressed;
 
@@ -73,7 +72,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         timer = new GameTimer();
         timer.start();
         gameOver = false;
-        won = false;
     }
 
     public void startGameThread() {
@@ -139,17 +137,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         // Check collisions
         if (player.getBounds().intersects(shadow.getBounds())) {
             gameOver = true;
-            won = false;
             timer.stop();
-            System.out.println("Collision! Game Over.");
+            String elapsedTime = timer.getElapsedTime();
+            System.out.println("Collision! Game Over. Time: " + elapsedTime);
+            gameFrame.showEndGame(false, elapsedTime);
         }
 
         // Check win condition
         if (player.getBounds().intersects(goalTile.getBounds())) {
             gameOver = true;
-            won = true;
             timer.stop();
-            System.out.println("Goal reached! You Win!");
+            String elapsedTime = timer.getElapsedTime();
+            System.out.println("Goal reached! You Win! Time: " + elapsedTime);
+            gameFrame.showEndGame(true, elapsedTime);
         }
     }
 
@@ -185,19 +185,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g2.setFont(new Font("Arial", Font.PLAIN, 16));
         g2.drawString("Time: " + timer.getElapsedTime(), 10, 20);
 
-        if (gameOver) {
-            g2.setColor(won ? Color.GREEN : Color.RED);
-            g2.setFont(new Font("Arial", Font.BOLD, 40));
-            String message = won ? "Victory! You Escaped!" : "Game Over";
-            g2.drawString(message, Constants.SCREEN_WIDTH / 2 - 150, Constants.SCREEN_HEIGHT / 2 - 20);
-            g2.setFont(new Font("Arial", Font.PLAIN, 20));
-            if (won) {
-                g2.drawString("Time: " + timer.getElapsedTime(), Constants.SCREEN_WIDTH / 2 - 50, Constants.SCREEN_HEIGHT / 2 + 20);
-            }
-            g2.drawString("Press R to Restart", Constants.SCREEN_WIDTH / 2 - 80, Constants.SCREEN_HEIGHT / 2 + 60);
-            g2.drawString("Press M for Menu", Constants.SCREEN_WIDTH / 2 - 80, Constants.SCREEN_HEIGHT / 2 + 90);
-        }
-
         g2.dispose();
     }
 
@@ -208,17 +195,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         if (code == KeyEvent.VK_DOWN) downPressed = true;
         if (code == KeyEvent.VK_LEFT) leftPressed = true;
         if (code == KeyEvent.VK_RIGHT) rightPressed = true;
-        if (code == KeyEvent.VK_R && gameOver) {
-            initializeGame();
-            startGameThread();
-        }
-        if (code == KeyEvent.VK_M && gameOver) {
-            if (gameFrame != null) {
-                gameFrame.showMainMenu();
-            } else {
-                System.err.println("Error: GameFrame reference is null");
-            }
-        }
     }
 
     @Override

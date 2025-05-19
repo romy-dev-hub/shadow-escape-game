@@ -9,6 +9,7 @@ public class GameFrame extends JFrame {
     private Container container;
     private MainMenuPanel mainMenuPanel;
     private GamePanel gamePanel;
+    private EndGamePanel endGamePanel;
 
     public GameFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,7 +21,7 @@ public class GameFrame extends JFrame {
         container.setLayout(cardLayout);
 
         mainMenuPanel = new MainMenuPanel(this);
-        gamePanel = new GamePanel(this); // Pass GameFrame to GamePanel
+        gamePanel = new GamePanel(this);
 
         container.add("MainMenu", mainMenuPanel);
         container.add("Game", gamePanel);
@@ -33,6 +34,9 @@ public class GameFrame extends JFrame {
     }
 
     public void startGame() {
+        container.remove(gamePanel);
+        gamePanel = new GamePanel(this);
+        container.add("Game", gamePanel);
         cardLayout.show(container, "Game");
         gamePanel.requestFocusInWindow();
     }
@@ -42,11 +46,19 @@ public class GameFrame extends JFrame {
         mainMenuPanel.requestFocusInWindow();
     }
 
+    public void showEndGame(boolean won, String time) {
+        if (endGamePanel != null) {
+            container.remove(endGamePanel);
+        }
+        endGamePanel = new EndGamePanel(this, won, time);
+        container.add("EndGame", endGamePanel);
+        cardLayout.show(container, "EndGame");
+        endGamePanel.requestFocusInWindow();
+        container.revalidate();
+        container.repaint();
+    }
+
     public void resetGame() {
-        container.remove(gamePanel);
-        gamePanel = new GamePanel(this); // Pass GameFrame to new GamePanel
-        container.add("Game", gamePanel);
-        cardLayout.show(container, "Game");
-        gamePanel.requestFocusInWindow();
+        startGame();
     }
 }

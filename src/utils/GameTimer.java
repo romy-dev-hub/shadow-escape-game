@@ -2,10 +2,13 @@ package utils;
 
 public class GameTimer {
     private long startTime;
+    private long elapsedTime;
     private boolean running;
 
     public GameTimer() {
-        reset();
+        startTime = 0;
+        elapsedTime = 0;
+        running = false;
     }
 
     public void start() {
@@ -16,18 +19,17 @@ public class GameTimer {
     }
 
     public void stop() {
-        running = false;
-    }
-
-    public void reset() {
-        startTime = System.currentTimeMillis();
-        running = false;
+        if (running) {
+            elapsedTime += System.currentTimeMillis() - startTime;
+            running = false;
+        }
     }
 
     public String getElapsedTime() {
-        long elapsed = running ? System.currentTimeMillis() - startTime : 0;
-        int seconds = (int) (elapsed / 1000) % 60;
-        int minutes = (int) (elapsed / (1000 * 60)) % 60;
+        long currentElapsed = running ? elapsedTime + (System.currentTimeMillis() - startTime) : elapsedTime;
+        long seconds = currentElapsed / 1000;
+        long minutes = seconds / 60;
+        seconds = seconds % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }
 }
