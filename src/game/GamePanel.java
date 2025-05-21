@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public GamePanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
         this.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT));
-        this.setBackground(Color.BLACK);
+        this.setBackground(new Color(31, 37, 38)); // Match wall color (charcoal)
         this.setDoubleBuffered(true);
         this.addKeyListener(this);
         this.setFocusable(true);
@@ -158,20 +158,30 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        // Enable anti-aliasing for smoother rendering
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         // Draw maze border
-        g2.setColor(Color.CYAN);
+        g2.setColor(new Color(79, 179, 191)); // Muted cyan
         g2.setStroke(new BasicStroke(4));
         g2.drawRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
         // Draw maze
         for (int y = 0; y < Constants.MAX_ROWS; y++) {
             for (int x = 0; x < Constants.MAX_COLS; x++) {
-                g2.setColor(maze[y][x] == 1 ? Color.DARK_GRAY : Color.BLACK);
-                g2.fillRect(x * Constants.TILE_SIZE, y * Constants.TILE_SIZE,
-                        Constants.TILE_SIZE, Constants.TILE_SIZE);
-                g2.setColor(Color.WHITE);
-                g2.drawRect(x * Constants.TILE_SIZE, y * Constants.TILE_SIZE,
-                        Constants.TILE_SIZE, Constants.TILE_SIZE);
+                int tileX = x * Constants.TILE_SIZE;
+                int tileY = y * Constants.TILE_SIZE;
+                if (maze[y][x] == 1) {
+                    // Gradient for path cells
+                    GradientPaint gradient = new GradientPaint(
+                            tileX, tileY, new Color(42, 47, 51), // Dark gray
+                            tileX, tileY + Constants.TILE_SIZE, new Color(58, 90, 95)); // Muted teal
+                    g2.setPaint(gradient);
+                } else {
+                    g2.setColor(new Color(31, 37, 38)); // Charcoal
+                }
+                // Use rounded rectangles for a prettier look
+                g2.fillRoundRect(tileX, tileY, Constants.TILE_SIZE, Constants.TILE_SIZE, 8, 8);
             }
         }
 
