@@ -53,8 +53,8 @@ public class Player {
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.CYAN);
-        g.fillRect(x, y, size, size);
+        g.setColor(Color.CYAN); // TODO: Change this color
+        g.fillRoundRect(x, y, size, size, 32, 32);
     }
 
     public void setX(int x) {

@@ -121,14 +121,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             player.move("UP");
             shadow.moveOpposite("UP");
         }
+
         if (downPressed) {
             player.move("DOWN");
             shadow.moveOpposite("DOWN");
         }
+
         if (leftPressed) {
             player.move("LEFT");
             shadow.moveOpposite("LEFT");
         }
+
         if (rightPressed) {
             player.move("RIGHT");
             shadow.moveOpposite("RIGHT");
@@ -162,7 +165,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Draw maze border
-        g2.setColor(new Color(79, 179, 191)); // Muted cyan
+        g2.setColor(new Color(79, 179, 191)); // Muted cyan // TODO: Change this boring af color
         g2.setStroke(new BasicStroke(4));
         g2.drawRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
@@ -173,15 +176,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 int tileY = y * Constants.TILE_SIZE;
                 if (maze[y][x] == 1) {
                     // Gradient for path cells
-                    GradientPaint gradient = new GradientPaint(
-                            tileX, tileY, new Color(42, 47, 51), // Dark gray
-                            tileX, tileY + Constants.TILE_SIZE, new Color(58, 90, 95)); // Muted teal
-                    g2.setPaint(gradient);
+                    // GradientPaint gradient = new GradientPaint(
+                    //         tileX, tileY, new Color(42, 47, 51), // Dark gray
+                    //         tileX, tileY + Constants.TILE_SIZE, new Color(58, 90, 95)); // Muted teal
+                    g2.setColor(new Color(58, 90, 95));
                 } else {
                     g2.setColor(new Color(31, 37, 38)); // Charcoal
                 }
                 // Use rounded rectangles for a prettier look
-                g2.fillRoundRect(tileX, tileY, Constants.TILE_SIZE, Constants.TILE_SIZE, 8, 8);
+                g2.fillRoundRect(tileX, tileY, Constants.TILE_SIZE, Constants.TILE_SIZE, 0, 0);
             }
         }
 

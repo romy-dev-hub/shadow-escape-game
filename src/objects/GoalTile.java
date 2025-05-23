@@ -12,9 +12,9 @@ public class GoalTile {
         this.size = size;
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g) { // TODO: Keep messing with this.
         g.setColor(Color.GREEN);
-        g.fillRect(x, y, size, size);
+        g.fillRoundRect(x, y, size, size, 32, 32);
     }
 
     public Rectangle getBounds() {

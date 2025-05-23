@@ -53,7 +53,7 @@ public class Shadow {
 
     public void draw(Graphics g) {
         g.setColor(Color.RED);
-        g.fillRect(x, y, size, size);
+        g.fillRoundRect(x, y, size, size, 32, 32);
     }
 
     public int getX() {
