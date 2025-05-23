@@ -55,16 +55,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 Constants.TILE_SIZE, Constants.PLAYER_SPEED, maze);
 
         // Place shadow at a random valid path cell, away from player and goal
-        int shadowCol, shadowRow;
-        do {
-            shadowCol = rand.nextInt(Constants.MAX_COLS);
-            shadowRow = rand.nextInt(Constants.MAX_ROWS);
-        } while (maze[shadowRow][shadowCol] == 0 ||
-                (shadowCol == playerCol && shadowRow == playerRow) ||
-                (shadowCol == mazeGen.getGoalX() && shadowRow == mazeGen.getGoalY()));
-        shadow = new Shadow(shadowCol * Constants.TILE_SIZE, shadowRow * Constants.TILE_SIZE,
+        // int shadowCol, shadowRow;
+        // do {
+        //     shadowCol = rand.nextInt(Constants.MAX_COLS);
+        //     shadowRow = rand.nextInt(Constants.MAX_ROWS);
+        // } while (maze[shadowRow][shadowCol] == 0 ||
+        //         (shadowCol == playerCol && shadowRow == playerRow) ||
+        //         (shadowCol == mazeGen.getGoalX() && shadowRow == mazeGen.getGoalY()));
+        // shadow = new Shadow(shadowCol * Constants.TILE_SIZE, shadowRow * Constants.TILE_SIZE,
+        //         Constants.TILE_SIZE, Constants.PLAYER_SPEED, maze);
+        
+        shadow = new Shadow(mazeGen.getShadowX() * Constants.TILE_SIZE, mazeGen.getShadowY() * Constants.TILE_SIZE,
                 Constants.TILE_SIZE, Constants.PLAYER_SPEED, maze);
-
+        
         // Place goal tile
         goalTile = new GoalTile(mazeGen.getGoalX() * Constants.TILE_SIZE, mazeGen.getGoalY() * Constants.TILE_SIZE,
                 Constants.TILE_SIZE);
@@ -165,7 +168,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Draw maze border
-        g2.setColor(new Color(79, 179, 191)); // Muted cyan // TODO: Change this boring af color
+        g2.setColor(new Color(79, 179, 191)); // Muted cyan // Change this boring af color
         g2.setStroke(new BasicStroke(4));
         g2.drawRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
