@@ -10,7 +10,6 @@ import objects.GoalTile;
 import utils.MazeGenerator;
 import utils.GameTimer;
 import utils.Constants;
-import java.util.Random;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
     private Player player;
@@ -21,7 +20,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private GameTimer timer;
     private boolean gameOver;
     private volatile Thread gameThread;
-    private final Random rand = new Random();
     private final GameFrame gameFrame;
 
     private boolean upPressed, downPressed, leftPressed, rightPressed;
