@@ -12,12 +12,17 @@ public class GoalTile {
         this.size = size;
     }
 
-    public void draw(Graphics g) { // Keep messing with this.
-        g.setColor(Color.GREEN);
-        g.fillRoundRect(x, y, size, size, 32, 32);
+    public void draw(Graphics g) {
+        int offset = (size - (size * 3/4)) / 2; // Calculate offset for centering
+        int smallerSize = size * 3/4; // Make entity 75% of tile size
+        
+        g.setColor(new Color(188, 231, 132)); // Changed this to a green that matches the background
+        g.fillRoundRect(x + offset, y + offset, smallerSize, smallerSize, 32, 32);
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, size, size);
+        int offset = (size - (size * 3/4)) / 2;
+        int smallerSize = size * 3/4;
+        return new Rectangle(x + offset, y + offset, smallerSize, smallerSize);
     }
 }

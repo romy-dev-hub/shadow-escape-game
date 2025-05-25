@@ -53,8 +53,11 @@ public class Player {
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.CYAN); // Change this color
-        g.fillRoundRect(x, y, size, size, 32, 32);
+        int offset = (size - (size * 3/4)) / 2; // Calculate offset for centering
+        int smallerSize = size * 3/4; // Make entity 75% of tile size
+        
+        g.setColor(new Color(66, 217, 200)); // Changed to a light cyan
+        g.fillRoundRect(x + offset, y + offset, smallerSize, smallerSize, 32, 32);
     }
 
     public void setX(int x) {
@@ -74,6 +77,8 @@ public class Player {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, size, size);
+        int offset = (size - (size * 3/4)) / 2;
+        int smallerSize = size * 3/4;
+        return new Rectangle(x + offset, y + offset, smallerSize, smallerSize);
     }
 }
