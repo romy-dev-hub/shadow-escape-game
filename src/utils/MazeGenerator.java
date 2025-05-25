@@ -61,7 +61,7 @@ public class MazeGenerator {
     }
 
     private void placeShadewTile() {
-        System.out.println("Starting shadow placement...");
+        // System.out.println("Starting shadow placement...");
         // Declaring variables to use BFS algorithm
         Queue<Tile> queue = new ArrayDeque<>();
         HashMap<Tile, Tile> parents = new HashMap<>();
@@ -69,7 +69,7 @@ public class MazeGenerator {
         Tile start = new Tile(1, 1);
         queue.add(start);
         visited[1][1] = true;
-        System.out.println("BFS initialized from start position (1,1)");
+        // System.out.println("BFS initialized from start position (1,1)");
 
         // BFS to find all reachable cells from start
         while (!queue.isEmpty()) {
@@ -79,7 +79,7 @@ public class MazeGenerator {
 
             // check if the current cell is the goal
             if (x == goalX && y == goalY) {
-                System.out.println("Path to goal found at (" + goalX + "," + goalY + ")");
+                // System.out.println("Path to goal found at (" + goalX + "," + goalY + ")");
                 break;
             }
 
@@ -98,17 +98,17 @@ public class MazeGenerator {
         }
 
         // Print the parents map
-        System.out.println("Parents map contents:");
-        for (HashMap.Entry<Tile, Tile> entry : parents.entrySet()) {
-            Tile child = entry.getKey();
-            Tile parent = entry.getValue();
-            System.out.println("Cell " + child + " has parent " + parent);
-        }
+        // System.out.println("Parents map contents:");
+        // for (HashMap.Entry<Tile, Tile> entry : parents.entrySet()) {
+        //     Tile child = entry.getKey();
+        //     Tile parent = entry.getValue();
+        //     System.out.println("Cell " + child + " has parent " + parent);
+        // }
 
 
         // Fix the problme with the path reconstruction
 
-        System.out.println("BFS compdleted, reconstructing path...");
+        // System.out.println("BFS compdleted, reconstructing path...");
         // Retrieve the path from the goal to the player
         List<Tile> path = new ArrayList<>();
         Tile current = new Tile(goalX, goalY);
@@ -118,26 +118,26 @@ public class MazeGenerator {
 
             // if (current[0] == 1 && current[1] == 1) {
             if (current == null) {
-                System.out.println("Warning: Path reconstruction failed!");
+                // System.out.println("Warning: Path reconstruction failed!");
                 break;
             }
 
-            System.out.println("Current cell: [" + current.getX() + "," + current.getY() + "]");
+            // System.out.println("Current cell: [" + current.getX() + "," + current.getY() + "]");
             path.add(current);
         }
 
-        System.out.println("Path length: " + path.size() + " cells");
+        // System.out.println("Path length: " + path.size() + " cells");
         // place the shadow tile in the middle of the path
         if (!path.isEmpty()) {
             Tile shadowTile = path.get(path.size() / 2);
             shadowX = shadowTile.getX();
             shadowY = shadowTile.getY();
-            System.out.println("Shadow placed at position (" + shadowX + "," + shadowY + ")");
+            // System.out.println("Shadow placed at position (" + shadowX + "," + shadowY + ")");
         } else {
             // Fallback if path is empty
             shadowX = 3;
             shadowY = 3;
-            System.out.println("No path found, shadow placed at default position (3,3)");
+            // System.out.println("No path found, shadow placed at default position (3,3)");
         }
     }
 
