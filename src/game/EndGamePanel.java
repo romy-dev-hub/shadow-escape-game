@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EndGamePanel extends JPanel {
-    private final GameFrame gameFrame;
+    protected final GameFrame gameFrame;
     private final boolean won;
     private final String time;
 

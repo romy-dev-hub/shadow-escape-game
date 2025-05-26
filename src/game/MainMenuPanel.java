@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainMenuPanel extends JPanel {
-    private GameFrame gameFrame;
+    protected GameFrame gameFrame;
 
     public MainMenuPanel(GameFrame gameFrame) {
         this.gameFrame = gameFrame;

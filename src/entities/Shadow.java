@@ -52,8 +52,11 @@ public class Shadow {
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.RED);
-        g.fillRect(x, y, size, size);
+        int offset = (size - (size * 3/4)) / 2; // Calculate offset for centering
+        int smallerSize = size * 3/4; // Make entity 75% of tile size
+        
+        g.setColor(new Color(222, 60, 75)); // changed to a red color matching the color palette
+        g.fillRoundRect(x + offset, y + offset, smallerSize, smallerSize, 32, 32);
     }
 
     public int getX() {
@@ -65,6 +68,8 @@ public class Shadow {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, size, size);
+        int offset = (size - (size * 3/4)) / 2;
+        int smallerSize = size * 3/4;
+        return new Rectangle(x + offset, y + offset, smallerSize, smallerSize);
     }
 }
